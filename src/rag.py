@@ -15,19 +15,15 @@ ANALOGY:
   most relevant cards and gives them to you.
 """
 
-import os  # For file/folder operations
-from typing import List  # For type hints
+import os
+from typing import List
 
-# --- LangChain imports ---
-from langchain_community.document_loaders import (
-    TextLoader,          # Loads .txt files
-    DirectoryLoader,     # Loads all files from a folder
-)
-from langchain_text_splitters import RecursiveCharacterTextSplitter  # Splits text into chunks
-from langchain_chroma import Chroma  # Vector database
-from langchain_huggingface import HuggingFaceEmbeddings  # Converts text to vectors locally
+from langchain_community.document_loaders import TextLoader, DirectoryLoader
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
 
-# Our config file with all settings
 from src.config import CHROMA_DB_PATH, DOCS_PATH
 
 
@@ -109,6 +105,28 @@ class RAGSystem:
         )
 
         print(f'Stored {len(chunks)} chunks in vector database')
+        return len(chunks)
+
+    def load_pdf(self, pdf_path: str) -> int:
+        """Load a single PDF file into the vector database."""
+        loader = PyPDFLoader(pdf_path)
+        documents = loader.load()
+
+        if not documents:
+            return 0
+
+        chunks = self.text_splitter.split_documents(documents)
+
+        if self.vector_store is None:
+            self.vector_store = Chroma.from_documents(
+                documents=chunks,
+                embedding=self.embeddings,
+                persist_directory=CHROMA_DB_PATH,
+                collection_name='rag_docs',
+            )
+        else:
+            self.vector_store.add_documents(chunks)
+
         return len(chunks)
 
     def search(self, query: str, num_results: int = 3) -> List[str]:
