@@ -1,0 +1,27 @@
+# Environment variables - NEVER commit
+.env
+
+# Virtual environment
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Package build artifacts
+*.egg-info/
+dist/
+build/
+
+# Data and databases (generated at runtime)
+data/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

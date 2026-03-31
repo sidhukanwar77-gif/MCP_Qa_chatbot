@@ -1,0 +1,16 @@
+# Company Policy Document - TechCorp Inc.
+
+## Leave Policy
+Every employee gets 20 paid leave days per year.
+Sick leave is separate and unlimited with a doctor's note.
+Unused leave can be carried forward up to 10 days to the next year.
+
+## Work From Home Policy
+Employees can work from home up to 3 days per week.
+Managers must approve WFH requests at least 1 day in advance.
+All employees must be available during core hours: 10 AM to 4 PM.
+
+## Salary Policy
+Salaries are reviewed every 6 months.
+Performance bonuses are paid in March and September.
+New employees are eligible for a bonus after 6 months of service.
